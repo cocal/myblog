@@ -12,7 +12,7 @@ import os.path
 
 from tornado.options import define, options
 #from tornado import ioloop
-define("port", default=8000, help="run on the given port", type=int)
+define("port", default=8001, help="run on the given port", type=int)
 
 class SearchHandler(tornado.web.RequestHandler):
     def get(self):
