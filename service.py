@@ -9,30 +9,26 @@ import tornado.ioloop
 import tornado.options
 import tornado.web
 import os.path
+from jinja2 import Environment, PackageLoader
+
 
 from tornado.options import define, options
 #from tornado import ioloop
-define("port", default=8000, help="run on the given port", type=int)
+define("port", default=8001, help="run on the given port", type=int)
 
 class SearchHandler(tornado.web.RequestHandler):
     def get(self):
-        self.write('test Done')
-        self.render("test")
-        print 'hehe'
-            
-class DetailHandler(tornado.web.RequestHandler):
-    def get(self):
-        id=self.get_arguments('id')
-        print('查询ID',id)
+        self.render("home.html",
+                    title="test",
+                    blog_name="cocal",                    
+                    )
     
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [(r"/",SearchHandler),
-                    (r"/de",DetailHandler),
                     ]
-#        conn = pymongo.Connection("127.0.0.1",27017)
-#        self.db = conn['mytestdb']
         settings = dict(
+            static_path = os.path.join(os.path.dirname(__file__), "static"),
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             debug=True,
         )
