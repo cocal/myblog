@@ -22,7 +22,10 @@ class SearchHandler(tornado.web.RequestHandler):
                     title="test",
                     blog_name="cocal",                    
                     )
-    
+class HomeHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.write("done");
+            
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [(r"/",SearchHandler),
