@@ -5,13 +5,29 @@ import markdown
 
 dir_path = os.path.abspath('posts')
 
+class Title_model(object):
+    date = ''
+    title = ''
+    filename = ''
+    
+    
 def titleManager():
     file_open = open('titles')
+    titleList = []
     try:
         titles = file_open.readlines();
+        for l in titles:
+            t = Title_model()
+            tokens =  l.split(':')
+            if len(tokens) > 2 :
+                t.date = tokens[0]
+                t.title = tokens[1]
+                t.filename = tokens[2]
+                titleList.append(t)
+            
     finally:
         file_open.close()
-    return titles
+    return titleList
 
 ##这块代码略奇葩 我还没理清楚怎么写 暂时就这样吧  - -
 def initTitleManager():
