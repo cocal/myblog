@@ -30,10 +30,18 @@ class HomeHandler(tornado.web.RequestHandler):
                     articlesList = self.titlelist,
                     blog_name="cocal",                    
                     )
+class GetPostsHandler(tornado.web.RequestHandler):
+    def get(self):
+        name = self.get_argument('postname')
+        if name == None:
+            self.write('err')
+        else:
+            self.write(manager.getPostHtml(name))
             
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [(r"/",HomeHandler),
+                    (r"/tis",GetPostsHandler),
                     ]
         settings = dict(
             static_path = os.path.join(os.path.dirname(__file__), "static"),
