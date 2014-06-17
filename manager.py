@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-
+import markdown
 
 dir_path = os.path.abspath('posts')
 
@@ -25,7 +25,7 @@ def initTitleManager():
             if title == -1:
                 continue;
             date = getContent(file_open.readline());
-            temp = temp + date + ":" + title  +'\n' 
+            temp = temp + date + ":" + title  + ':' + filename+'\n' 
         finally:
             file_open.close()
             
@@ -45,7 +45,16 @@ def getContent(line):
     else: 
         return -1;
     
-
+def getPostHtml(filename):
+    file_open = open(dir_path + '/' + filename)
+    try:
+        m_content = file_open.read()
+        html = markdown.markdown(m_content)
+        return html
+    finally:
+        file_open.close()
+        
+        
 if __name__ == '__main__':
 #     str = titleManager();
 #     for x in str:
