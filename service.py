@@ -43,11 +43,14 @@ class GetPostsHandler(tornado.web.RequestHandler):
                         )
             
             
-class RefreshTitlesHandler(HomeHandler):
-    pass
-
-    
-    
+class RefreshTitlesHandler(tornado.web.RequestHandler):
+    def get(self):
+        manager.initTitleManager()
+        self.render("homepage.html",
+                    title="test",
+                    articlesList = manager.titleManager(),
+                    blog_name="cocal",                    
+                    )
                 
 class Application(tornado.web.Application):
     def __init__(self):
