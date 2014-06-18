@@ -1,7 +1,7 @@
 --title:test 
 --date:2014-06-17
 
-##this my blog 
+#this my blog 
 测试中文显示
 
 目测已经可以显示了 

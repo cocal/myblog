@@ -65,7 +65,7 @@ def getPostHtml(filename):
     file_open = open(dir_path + '/' + filename)
     try:
         m_content = file_open.read()
-        html = markdown.markdown(m_content)
+        html = markdown.markdown(m_content,extensions=["fenced_code"])
         return html
     finally:
         file_open.close()

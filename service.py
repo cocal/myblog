@@ -25,7 +25,7 @@ class SearchHandler(tornado.web.RequestHandler):
 class HomeHandler(tornado.web.RequestHandler):
     titlelist = manager.titleManager()
     def get(self):
-        self.render("home.html",
+        self.render("homepage.html",
                     title="test",
                     articlesList = self.titlelist,
                     blog_name="cocal",                    
@@ -37,7 +37,10 @@ class GetPostsHandler(tornado.web.RequestHandler):
         if name == None:
             self.write('err')
         else:
-            self.write(manager.getPostHtml(name))
+            content = manager.getPostHtml(name)
+            self.render("post3.html",
+                        content = content
+                        )
             
             
 class RefreshTitlesHandler(HomeHandler):
