@@ -9,7 +9,7 @@ import tornado.ioloop
 import tornado.options
 import tornado.web
 import os.path
-
+import datetime
 from tornado.options import define, options
 import manager
 
@@ -41,7 +41,11 @@ class GetPostsHandler(tornado.web.RequestHandler):
             self.render("post3.html",
                         content = content
                         )
-            
+class initAPost(tornado.web.RequestHandler):
+    def get(self):
+        filename = self.get_argument('cr_name',None)
+        manager.initAPost(filename)
+        HomeHandler
             
 class RefreshTitlesHandler(tornado.web.RequestHandler):
     def get(self):
@@ -57,6 +61,7 @@ class Application(tornado.web.Application):
         handlers = [(r"/",HomeHandler),
                     (r"/tis",GetPostsHandler),
                     (r"/resh",RefreshTitlesHandler),
+                    (r"/cre",initAPost),
                     ]
         settings = dict(
             static_path = os.path.join(os.path.dirname(__file__), "static"),
