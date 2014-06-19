@@ -2,6 +2,7 @@
 
 import os
 import markdown
+import time
 
 dir_path = os.path.abspath('posts')
 
@@ -53,6 +54,22 @@ def initTitleManager():
         title_write.close()
     return  temp
 
+def initAPost(name):
+    date_str = time.strftime('%Y-%m-%d',time.localtime(time.time()))
+    if name == None:
+        name = date_str
+    name = checkFileIsExists(name)
+    print name
+    line1 = '--title:Write A Title Here\n'
+    line2 = '--Date:' + date_str + '\n'
+    line = line1 + line2
+    f_open = open(dir_path + '/' + name + '.md','w')
+    try:
+        f_open.write(line)
+    finally:
+        f_open.close()
+    return name
+    
 def getContent(line):
     line = line.strip('\n')
     tokens = line.split(':')
@@ -70,11 +87,27 @@ def getPostHtml(filename):
     finally:
         file_open.close()
         
+def checkFileIsExists(filename,i=0):
+    if not os.path.exists(dir_path + '/' + filename + '.md'):
+        return filename
+    else:
+        i = i + 1
+        if i == 1:
+            filename = filename + '_' + str(i)
+        else:
+            filename = filename[:-1] + str(i)
+        filename = checkFileIsExists(filename,i)
+    return filename         
         
 if __name__ == '__main__':
 #     str = titleManager();
 #     for x in str:
 #         print x
-    f = initTitleManager();
+#     f = initTitleManager();
 #     for x in f:
 #         print x;
+    f = checkFileIsExists('1')
+    print f
+    
+    
+    
