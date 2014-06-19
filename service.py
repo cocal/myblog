@@ -23,11 +23,11 @@ class SearchHandler(tornado.web.RequestHandler):
                     blog_name="cocal",                    
                     )
 class HomeHandler(tornado.web.RequestHandler):
-    titlelist = manager.titleManager()
+#     titlelist = manager.titleManager()
     def get(self):
         self.render("homepage.html",
                     title="test",
-                    articlesList = self.titlelist,
+                    articlesList = manager.titleManager(),
                     blog_name="cocal",                    
                     )
         
