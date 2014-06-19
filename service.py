@@ -44,8 +44,12 @@ class GetPostsHandler(tornado.web.RequestHandler):
 class initAPost(tornado.web.RequestHandler):
     def get(self):
         filename = self.get_argument('cr_name',None)
-        manager.initAPost(filename)
-        HomeHandler
+        filename = manager.initAPost(filename)
+        manager.initTitleManager()
+        content = manager.getPostHtml(filename+'.md')
+        self.render("post3.html",
+                     content = content
+                        )
             
 class RefreshTitlesHandler(tornado.web.RequestHandler):
     def get(self):
