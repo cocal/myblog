@@ -26,7 +26,7 @@ class HomeHandler(tornado.web.RequestHandler):
 #     titlelist = manager.titleManager()
     def get(self):
         self.render("homepage.html",
-                    title="test",
+                    title="cocal's blog",
                     articlesList = manager.titleManager(),
                     blog_name="cocal",                    
                     )
