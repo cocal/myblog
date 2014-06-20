@@ -31,8 +31,8 @@
     <div class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Home</a></li>
-         <!-- <li><a href="#">About</a></li>
+         <!-- <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
           <li><a href="#">Contact</a></li>-->
         </ul>
         <h3 class="text-muted">{{title}}</h3>
@@ -40,9 +40,10 @@
       <div class="row marketing">
         <div class="col-lg-6">
         {% for article in articlesList %}
-        	<h4>{{article.date}} --
+        	<li><h4>{{article.date}} --
         	<a href="/tis?postname={{article.filename}}">{{article.title}} </a>
         	</h4>
+        	</li>
        	 {% end %}
         </div>
       </div>
