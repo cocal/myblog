@@ -9,10 +9,10 @@ import tornado.ioloop
 import tornado.options
 import tornado.web
 import os.path
-import datetime
 from tornado.options import define, options
 import manager
 
+import msgNote
 #from tornado import ioloop
 define("port", default=8001, help="run on the given port", type=int)
 
@@ -38,7 +38,7 @@ class GetPostsHandler(tornado.web.RequestHandler):
             self.write('err')
         else:
             content = manager.getPostHtml(name)
-            self.render("post3.html",
+            self.render("post4.html",
                         content = content
                         )
 class initAPost(tornado.web.RequestHandler):
@@ -59,13 +59,33 @@ class RefreshTitlesHandler(tornado.web.RequestHandler):
                     articlesList = manager.titleManager(),
                     blog_name="cocal",                    
                     )
-                
+    
+class testNewPage(tornado.web.RequestHandler): 
+    def get(self):
+        self.render('newtheme\index.html')   
+class getMsg(tornado.web.RedirectHandler):
+    def get(self):
+        pass
+    
+class getMsgHandle(tornado.web.RequestHandler):
+    def get(self):
+        self.write('<html><body><form action="/msg" method="post">'
+                   '<input type="text" name="message">'
+                   '<input type="submit" value="Submit">'
+                   '</form></body></html>')
+
+    def post(self):
+        self.set_header("Content-Type", "text/plain")
+        self.write("You wrote " + self.get_argument("message"))    
+                    
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [(r"/",HomeHandler),
                     (r"/tis",GetPostsHandler),
                     (r"/resh",RefreshTitlesHandler),
                     (r"/cre",initAPost),
+                    (r"/t",testNewPage),
+                    (r"/msg",getMsgHandle),
                     ]
         settings = dict(
             static_path = os.path.join(os.path.dirname(__file__), "static"),
@@ -73,6 +93,8 @@ class Application(tornado.web.Application):
             debug=True,
         )
         tornado.web.Application.__init__(self,handlers,**settings)
+
+
 
 def testTimer():
     print('I am still running')
