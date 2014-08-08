@@ -4,13 +4,34 @@ Created on 2014年8月4日
 
 @author: cocal
 '''
+# 
+#                                          +--------------+
+#                                          |              |
+# +-------------+                          |              |
+# |             |                   LOCK   |              |
+# |    APPLY    +------------------------> |              |
+# |             |                          |   memCache   |
+# +-------------+                          |              |
+#                                          |              |
+#                                          |              |
+#                                          |              |
+#                                          |              |
+# +-------------+                          |    Service   |
+# |             |  ULock                   |              |
+# |    APPLY2   +--------------------------+              |
+# |             |                          |              |
+# +-------------+                          |              |
+#                                          +--------------+
+
+
 import MemCacheDto
 
 
-__memCache__ = {'version':'0.001Beta'}
+__memCache__ = {'version':'version:0.001Beta'}
 
 def viewAllCache():
-    print __memCache__
+    for item in __memCache__.keys():
+        print __memCache__[item]
 
 def lockItem(key):
     if __memCache__.has_key(key) :
