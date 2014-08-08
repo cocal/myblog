@@ -75,8 +75,9 @@ class getMsgHandle(tornado.web.RequestHandler):
                    '</form></body></html>')
 
     def post(self):
-        self.set_header("Content-Type", "text/plain")
-        self.write("You wrote " + self.get_argument("message"))    
+#         self.set_header("Content-Type", "text/plain")
+        self.write('{% extends "msgNote.html" %}'
+                   "You wrote " + self.get_argument("message"))    
                     
 class Application(tornado.web.Application):
     def __init__(self):
