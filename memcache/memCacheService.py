@@ -4,7 +4,7 @@ Created on 2014年8月4日
 
 @author: cocal
 '''
-from memcache import MemCacheDto
+import MemCacheDto
 
 
 __memCache__ = {'version':'0.001Beta'}
@@ -20,9 +20,10 @@ def lockItem(key):
 def addCache(key,value,time = None):
     if __memCache__.has_key(key) :
         return 'the key is checked'
-    m = MemCacheDto()
+    m = MemCacheDto.memCache()
     m.key = key
     m.val = value
     m.lifeCycle = time
+    __memCache__[key] = m
     
     
